@@ -15,15 +15,19 @@ const Education = () => {
     const HundleSubmit = (e) => {
         e.preventDefault();
         const data = {
-            schoolName: schoolName,
-            degree: degree,
-            field: field,
-            location: location,
-            start: start,
-            end: end
+            education: [
+                {
+                    schoolName: schoolName,
+                    degree: degree,
+                    field: field,
+                    location: location,
+                    start: start,
+                    end: end
+                }
+            ]
         };
         dispatch(add(data));
-        navigate("/technical");
+        navigate("/experience");
 
     }
 

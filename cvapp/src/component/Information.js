@@ -25,7 +25,7 @@ const Information = () => {
       phone: phone
     };
     dispatch(add(data));
-    navigate("/experience");
+    navigate("/education");
   }
   return (
     <div className='h-screen w-full top-0'>

@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { add } from './detailSlice';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import Photo from './Images/Layer_1 (1).png'
 import { useNavigate } from 'react-router-dom';
 const Information = () => {
@@ -12,15 +14,25 @@ const Information = () => {
   const [country, setCountry] = useState();
   const [startdate, setStartdate] = useState();
   const [enddate, setEnddate] = useState();
+  const [editorData, setEditorData] = useState('');
+  const handleEditorChange = (event, editor) => {
+    const data = editor.getData();
+    setEditorData(data);
+  };
   function HandleSubmit(e) {
     e.preventDefault();
     const data = {
-      jobtitle: jobtitle,
-      employer: employer,
-      city: city,
-      country: country,
-      startdate: startdate,
-      enddate: enddate
+      jobs: [
+        {
+          jobtitle: jobtitle,
+          employer: employer,
+          city: city,
+          country: country,
+          startdate: startdate,
+          enddate: enddate,
+          jobdescription: editorData
+        }
+      ]
     };
     dispatch(add(data));
     navigate("/summary");
@@ -61,6 +73,13 @@ const Information = () => {
                 <label className=' text-blue-900 font-bold text-lg'>End Date</label>
                 <input onChange={(e) => setEnddate(e.target.value)} className='border-2 h-[40px] w-[280px] pl-5 rounded-md border-blue-900' type='date' placeholder='e.g kbonheur123@gmail.com'></input>
               </div>
+            </div>
+            <div className=' w-[99.5%] mt-3 border-[2px] rounded-md border-blue-900'>
+              <CKEditor
+                editor={ClassicEditor}
+                data={editorData}
+                onChange={handleEditorChange}
+              />
             </div>
             <div className=' flex gap-6 mt-9'>
               <div className=' grid gap-2'>
